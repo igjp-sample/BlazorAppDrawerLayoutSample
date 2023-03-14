@@ -1,12 +1,14 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
+<div class="page @DrawerMinifiedCssClass @DrawerClosedCssClass">
+    <div class="sidebar @DrawerExpandedCssClass" @onmouseenter="ExpandDrawer" @onmouseleave="CollapseDrawer">
         <NavMenu />
     </div>
 
     <main>
         <div class="top-row px-4">
+            <button class="btn btn-primary mx-1" @onclick="ToggleMinifyDrawer">Minify Drawer</button>
+            <button class="btn btn-primary mx-1" @onclick="ToggleCloseDrawer">Close Drawer</button>
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
@@ -15,3 +17,36 @@
         </article>
     </main>
 </div>
+
+@code {
+    private bool minifiedDrawer = false;
+
+    private string? DrawerMinifiedCssClass => minifiedDrawer ? "minified" : null;
+
+    private void ToggleMinifyDrawer()
+    {
+        minifiedDrawer = !minifiedDrawer;
+    }
+
+    private bool closeDrawer = false;
+
+    private string? DrawerClosedCssClass => closeDrawer ? "closed" : null;
+
+    private void ToggleCloseDrawer()
+    {
+        closeDrawer = !closeDrawer;
+    }
+
+    private bool expandedDrawer = false;
+
+    private string? DrawerExpandedCssClass => expandedDrawer ? "expanded" : null;
+
+    private void ExpandDrawer()
+    {
+        expandedDrawer = true;
+    }
+    private void CollapseDrawer()
+    {
+        expandedDrawer = false;
+    }
+}

@@ -38,6 +38,7 @@
         display: flex;
         align-items: center;
         line-height: 3rem;
+        white-space: nowrap;
     }
 
 .nav-item ::deep a.active {
@@ -50,6 +51,17 @@
     color: white;
 }
 
+.minified .nav-item .nav-text {
+    display: none;
+}
+.minified .navbar-brand > span {
+    display: none;
+}
+.nav-item .oi {
+    width: auto;
+    margin-right: 1em;
+}
+
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
@@ -59,10 +71,11 @@
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
-    
+
     .nav-scrollable {
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);
         overflow-y: auto;
+        overflow-x: hidden;
     }
 }
