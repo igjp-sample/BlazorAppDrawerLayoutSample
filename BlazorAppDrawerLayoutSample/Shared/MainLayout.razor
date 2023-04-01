@@ -1,4 +1,29 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+<div id="shortcut" class="@ShortcutShowCssClass">
+    <ul>
+        <li>
+            <a href="#ajax/inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+        </li>
+        <li>
+            <a href="#ajax/calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+        </li>
+        <li>
+            <a href="#ajax/gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+        </li>
+        <li>
+            <a href="#ajax/invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
+        </li>
+        <li>
+            <a href="#ajax/gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+        </li>
+        <li>
+            <a href="#ajax/profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+        </li>
+    </ul>
+</div>
 
 <div class="page @DrawerMinifiedCssClass @DrawerClosedCssClass">
     <div class="sidebar @DrawerExpandedCssClass" @onmouseenter="ExpandDrawer" @onmouseleave="CollapseDrawer">
@@ -6,7 +31,8 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
+        <div class="top-row px-4" @ref="openShortcutButtonRef">
+            <button class="btn btn-primary mx-1" @onclick="ToggleShortcut">Open Shortcut</button>
             <button class="btn btn-primary mx-1" @onclick="ToggleMinifyDrawer">Minify Drawer</button>
             <button class="btn btn-primary mx-1" @onclick="ToggleCloseDrawer">Close Drawer</button>
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
@@ -19,6 +45,39 @@
 </div>
 
 @code {
+    private bool showShortcut = false;
+    private string? ShortcutShowCssClass => showShortcut ? "show" : null;
+
+    private ElementReference openShortcutButtonRef;
+    private DotNetObjectReference<MainLayout>? objectReference;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            objectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("clickOutsideHandler.addEventListener", openShortcutButtonRef, objectReference);
+        }
+    }
+
+    [JSInvokable]
+    public void OnClickOutside()
+    {
+        Console.WriteLine("Clicked outside the target area");
+        showShortcut = false;
+    }
+
+    public void Dispose()
+    {
+        objectReference?.Dispose();
+    }
+
+
+    private void ToggleShortcut()
+    {
+        showShortcut = !showShortcut;
+    }
+
     private bool minifiedDrawer = false;
 
     private string? DrawerMinifiedCssClass => minifiedDrawer ? "minified" : null;
@@ -49,4 +108,5 @@
     {
         expandedDrawer = false;
     }
+    
 }

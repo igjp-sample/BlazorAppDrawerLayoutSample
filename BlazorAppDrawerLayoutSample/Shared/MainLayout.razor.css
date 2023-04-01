@@ -6,6 +6,9 @@
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
+.minified .sidebar {
+    z-index: 10;
+}
 
 .top-row {
     background-color: #f7f7f7;
@@ -88,4 +91,114 @@
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
+}
+
+#shortcut {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    background-color: #33302F;
+    background-color: rgba(0,0,0,.85);
+    z-index: 30;
+    display: none;
+    color: #fff;
+    box-sizing: border-box;
+}
+#shortcut.show {
+    display: block;
+}
+#shortcut ul {
+    padding: 15px 20px 10px;
+    list-style: none;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,.3);
+    border-bottom: 1px solid #423F3F;
+}
+#shortcut ul li {
+    display: inline-block;
+    width: auto;
+}
+.jarvismetro-tile {
+    float: left;
+    display: block;
+    background-color: #fff;
+    width: 100px;
+    height: 70px;
+    cursor: pointer;
+    box-shadow: inset 0 0 1px #FFC;
+    border: 1px dotted #C5C5C5;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    margin: 0 10px 20px 0;
+    padding: 5px;
+    position: relative;
+}
+#shortcut ul li .jarvismetro-tile {
+    margin: 0 3px 3px;
+    border: none;
+    border-radius: 0;
+}
+
+#shortcut ul li .jarvismetro-tile:hover {
+    color: #fff;
+    text-decoration: none
+}
+
+#shortcut ul li .jarvismetro-tile:active, #shortcut ul li .jarvismetro-tile:focus {
+    left: 0;
+    top: 0
+}
+.jarvismetro-tile .iconbox i {
+    display: block;
+    margin: 15px auto 0;
+    height: 75px;
+}
+.jarvismetro-tile .iconbox {
+    text-align: center;
+}
+.jarvismetro-tile .iconbox span {
+    display: block;
+    text-align: left;
+}
+.bg-color-blue {
+    background-color: #57889c !important;
+}
+.bg-color-orangeDark {
+    background-color: #a57225 !important;
+}
+.bg-color-purple {
+    background-color: #6e587a !important;
+}
+.bg-color-blueDark {
+    background-color: #4c4f53 !important;
+}
+.bg-color-greenLight {
+    background-color: #71843f !important;
+}
+.bg-color-pinkDark {
+    background-color: #a8829f !important;
+}
+.jarvismetro-tile.big-cubes {
+    width: 120px;
+    height: 120px;
+}
+.jarvismetro-tile .iconbox span > span {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #fff;
+    line-height: 1;
+}
+.jarvismetro-tile .iconbox span {
+    display: block;
+    text-align: left;
+}
+.bg-color-darken {
+    background-color: #404040 !important;
 }

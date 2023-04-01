@@ -9,10 +9,22 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 @ShowSubMenuCssClass" @onmouseenter="ExpandSubMenu" @onmouseleave="CollapseSubMenu">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> <span class="nav-text">Home</span>
+                <b class="collapse-sign" @onclick="ToggleSubMenu"><em class="fa @CollapseIconCssClass"></em></b>
             </NavLink>
+            <ul class="sub-links @SubMenuCssClass">
+                <li>
+                    <a href="sub">Sublink</a>
+                </li>
+                <li>
+                    <a href="sub">Sublink</a>
+                </li>
+                <li>
+                    <a href="sub">Sublink</a>
+                </li>
+            </ul>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
@@ -28,6 +40,30 @@
 </div>
 
 @code {
+
+    private bool showSubMenu = false;
+
+    private string? SubMenuCssClass => showSubMenu ? "show" : null;
+    private string? CollapseIconCssClass => showSubMenu ? "fa-minus-square-o" : "fa-plus-square-o";
+
+    private void ToggleSubMenu()
+    {
+        showSubMenu = !showSubMenu;
+    }
+
+    private bool showSubMenuAsFloat = false;
+
+    private string? ShowSubMenuCssClass => showSubMenuAsFloat ? "show-sub-menu" : null;
+
+    private void ExpandSubMenu()
+    {
+        showSubMenuAsFloat = true;
+    }
+    private void CollapseSubMenu()
+    {
+        showSubMenuAsFloat = false;
+    }
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
