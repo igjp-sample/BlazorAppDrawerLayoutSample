@@ -1,6 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime JSRuntime
-@implements IDisposable
 
 <div id="shortcut" class="@ShortcutShowCssClass">
     <ul>
@@ -25,13 +23,15 @@
     </ul>
 </div>
 
+<div id="shortcut-bg-layer" class="@ShortcutShowCssClass" @onclick="ToggleShortcut"></div>
+
 <div class="page @DrawerMinifiedCssClass @DrawerClosedCssClass">
     <div class="sidebar @DrawerExpandedCssClass" @onmouseenter="ExpandDrawer" @onmouseleave="CollapseDrawer">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4" @ref="openShortcutButtonRef">
+        <div class="top-row px-4">
             <button class="btn btn-primary mx-1" @onclick="ToggleShortcut">Open Shortcut</button>
             <button class="btn btn-primary mx-1" @onclick="ToggleMinifyDrawer">Minify Drawer</button>
             <button class="btn btn-primary mx-1" @onclick="ToggleCloseDrawer">Close Drawer</button>
@@ -47,31 +47,6 @@
 @code {
     private bool showShortcut = false;
     private string? ShortcutShowCssClass => showShortcut ? "show" : null;
-
-    private ElementReference openShortcutButtonRef;
-    private DotNetObjectReference<MainLayout>? objectReference;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            objectReference = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("clickOutsideHandler.addEventListener", openShortcutButtonRef, objectReference);
-        }
-    }
-
-    [JSInvokable]
-    public void OnClickOutside()
-    {
-        Console.WriteLine("Clicked outside the target area");
-        showShortcut = false;
-    }
-
-    public void Dispose()
-    {
-        objectReference?.Dispose();
-    }
-
 
     private void ToggleShortcut()
     {

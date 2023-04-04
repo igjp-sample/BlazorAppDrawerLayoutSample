@@ -93,6 +93,16 @@
     }
 }
 
+#shortcut-bg-layer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 29;
+    display: none;
+}
+#shortcut-bg-layer.show {
+    display: block;
+}
 #shortcut {
     position: absolute;
     top: 0;
